@@ -113,7 +113,7 @@ Now plot the Time series Plot based on 5-minute Interval vs Average Steps Taken
 ```r
 ggplot(mean.interval, aes(x=interval, y=steps)) +
   geom_line(color = "darkblue") +
-  labs(title = "Time Series Plot (Interval vs Mean Steps", x = "5-minute Interval", y = "Averaged Steps Taken")
+  labs(title = "Time Series Plot (Interval vs Mean Steps)", x = "5-minute Interval", y = "Averaged Steps Taken")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
@@ -138,21 +138,9 @@ The interval 835 has the maximum number of averaged steps count at 206.
 
 ## Imputing missing values
 
-Calculate the total number of missing values in the dataset.
-
-```r
-sum(is.na(data$steps)) %>%
-  print
-```
-
-```
-## [1] 2304
-```
-Total number of missing steps values in the given dataset is 2304
-
 **Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.**
 
-In this experiment, the mean steps for each interval is used as filler for imputing data
+In this experiment, the mean steps for each interval is used as filler for imputing the given data
 
 
 ```r
@@ -201,7 +189,7 @@ ggplot(filled.steps, aes(x = steps)) +
   labs(title = "Histogram of Total Steps Per Day (after missing values are filled)", x = "Total Steps Per Day", y = "Occurences")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 Calculate the mean of the total number of steps taken per day
 
@@ -231,7 +219,7 @@ After the dataset is imputed with additional data, *total steps per day* occuren
 
 **Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.**
 
-Define a new function to retrn weekday status and add a new header field to indicate weekday status.
+Define a new function to check weekday status and add a new header field to indicate weekday status (i.e.*daytype*). 
 
 
 ```r
@@ -253,7 +241,7 @@ filled.data$daytype <- as.factor(filled.data$daytype)
 
 **Make a panel plot containing a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).**
 
-Aggregate averaged steps count based on interval and weekday status (i.e.**daytype**) 
+Aggregate averaged steps count based on interval and weekday status (i.e.*daytype*) 
 
 
 ```r
@@ -270,6 +258,8 @@ ggplot(filled.interval, aes(x=interval, y=steps, color = daytype)) +
   labs(title = "Time Series Plot for Weekday and Weekend", x = "5-minute Inrterval", y = "Averaged Steps Taken")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
-When comparing the two time series plots, weekdays seems has more activities between 500 and 750 intervals.
+When comparing the two time series plots, the following different activity patterns are observed:
+- weekdays has more activities between 500 and 750 intervals.
+- weekdays has more intensive activity during the peak time (between 750 and 1000 intervals).
